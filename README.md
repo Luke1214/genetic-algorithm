@@ -1,1 +1,57 @@
 # genetic-algorithm
+
+/**********************************************************
+* README
+*
+* Luke Westervelt
+* July 19, 2024
+*********************************************************/
+
+To Compile:
+Navigate to 'genetic' directory in the terminal, then run the following commands:
+1. mkdir build          (NOTE: if directory 'build' already exists, first run 'rmdir build')
+2. cd build
+3. cmake ..             (NOTE: if cmake is not found, use Homebrew to install cmake)
+4. make
+After program compiles, run:
+5. ./genetic
+
+Introduction:
+We are going on a hiking trip and have a limit to the number of items we can bring. There
+are 12 items that we would like to take with us, but we cannot exceed the maximum weight (250).
+Therefore we need to come up with a way to determine the most important (i.e. valuable) items
+to take with us, without exceeding the weight limit.
+
+values = {6, 5, 8, 7, 6, 9, 4, 5, 4, 9, 2, 1}
+weights = {20, 30, 60, 90, 50, 70, 30, 30, 70, 20, 20, 60}
+
+1. Define the problem as a genetic algorithm:
+    Objective: Maximize the total importance of the boxes in the backpack while keeping weight
+    less than or equal to 250
+    Steps:
+        1.1 Create a population of possible solutions (i.e. possible backpacks)
+        1.2 Determine the best solutions and select those ones
+        1.3 Implement a method for creating children solutions from the fittest parent solutions
+
+2. Provide the genome for the problem:
+    The genome is a binary string of length 12, where each bit represents an items. The first
+    bit represents the first item, the second bit the second item, and so on. A 0 in the binary
+    string means that the item is not present in the backpack, and a 1 means that it is present.
+
+3. Define all the fringe operations:
+    - build population: builds the initial population of individual solutions
+    - fitness function: determines the fitness of each individual. The fitness is the value, except
+      in cases where the individual exceeds the weight limit. In that case, a penalty is applied.
+    - selection - randomly selects individuals from the top 50% of the population to reproduce
+    - crossover - combines parents genomes to create children
+    - mutation - randomly modifies genomes to introduce variability
+
+Assumptions:
+1. The population size is 200
+2. The algorithm finishes after 25 genetations
+3. The population remains stable. the population is sorted each generation,
+   and the bottom 50% of individuals are replaced with children from the top 50%.
+4. NOTE: all output is printed in the text file generation.txt, which is found
+   in the build directory. The output includes all generations (labled "Generation #N"),
+   the individuals in each generation, and the value, fitness, and weight of each
+   individual.
